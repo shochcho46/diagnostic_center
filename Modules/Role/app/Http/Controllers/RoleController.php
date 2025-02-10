@@ -35,9 +35,7 @@ class RoleController extends Controller
         return view('role::role.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function roleStore(Request $request)
     {
         $validatedData = $request->validate([
