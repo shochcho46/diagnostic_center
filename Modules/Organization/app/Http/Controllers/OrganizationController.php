@@ -153,8 +153,28 @@ class OrganizationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Organization $organization)
     {
-        //
+        $organization->clearMediaCollection('logo');
+        $organization->delete();
+        $toaster = [
+            'message' => 'Organization deleted successfully!',
+            'alert-type' => 'error'
+        ];
+
+        return redirect()->route('admin.organizationIndex')->with($toaster);
+    }
+
+    public function toggleSms(Request $request)
+    {
+        $organization = Organization::find($request->id);
+        $organization->is_sms = !$organization->is_sms;
+        $organization->save();
+
+        return response()->json([
+            'message' => 'SMS status updated successfully!',
+            'alert-type' => 'success'
+        ]);
+
     }
 }

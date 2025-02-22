@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -25,6 +26,7 @@ class Organization extends Model implements HasMedia
      */
     protected $fillable = [
         'name',
+        'slug',
         'division_id',
         'district_id',
         'upazila_id',
@@ -74,9 +76,23 @@ class Organization extends Model implements HasMedia
 
         static::creating(function ($model) {
             if (Auth::guard('admin')->check()) {
-                $model->admin_id = Auth::guard('admin')->user()->id;
-                $model->updated_by = Auth::guard('admin')->user()->id;
+            $model->admin_id = Auth::guard('admin')->user()->id;
+            $model->updated_by = Auth::guard('admin')->user()->id;
             }
+
+            // Generate a unique slug
+            $slug = Str::slug(implode('', array_map(function($word) {
+                return $word[0];
+            }, array_slice(explode(' ', $model->name), 0, 8))));
+            $originalSlug = $slug;
+            $counter = 1;
+
+            while (self::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+            }
+
+            $model->slug = $slug;
         });
 
         static::updating(function ($model) {
