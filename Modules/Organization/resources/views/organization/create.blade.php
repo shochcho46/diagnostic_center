@@ -115,7 +115,7 @@
 
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="image" class="form-label">Upload Image</label>
-                                <input type="file" class="form-control" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                                <input type="file" class="form-control" id="image" name="logo" accept="image/*" onchange="previewImage(event)">
                                 @error('image')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

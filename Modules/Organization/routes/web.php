@@ -20,9 +20,10 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::get('organization/index', 'index')->name('admin.organizationIndex');
         Route::get('organization/create', 'create')->name('admin.organizationCreate');
         Route::post('organization/store', 'store')->name('admin.organizationStore');
+        Route::get('organization/sms/toggle', 'toggleSms')->name('admin.organizationToggleSms');
         // Route::get('organization/{organization}/edit', 'roleEdit')->name('admin.roleEdit');
         // Route::put('organization/{organization}/update', 'roleUpdate')->name('admin.roleUpdate');
-        // Route::delete('organization/{organization}/delete', 'roleDestroy')->name('admin.roleDestroy');
+        Route::delete('organization/{organization}/delete', 'destroy')->name('admin.organizationDestroy');
         // Route::get('organization/{organization}/with/permission', 'roleWithPermission')->name('admin.roleWithPermission');
         // Route::put('organization/{organization}/with/permission/assign', 'roleWithPermissionStore')->name('admin.roleWithPermissionStore');
 
