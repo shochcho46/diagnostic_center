@@ -5,7 +5,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 use Propaganistas\LaravelPhone\Rules\Phone;
 use Carbon\Carbon;
 use App\Jobs\SendSmsJob;
-
+use Illuminate\Support\Facades\Auth;
 
 if (! function_exists('validationError')) {
  function validationError($validator)
@@ -116,3 +116,21 @@ if (! function_exists('validationMobileNumber')) {
         return true;
     }
    }
+
+   if (! function_exists('getAdminRole')) {
+    function getAdminRole()
+    {
+        $currentUserRole = Auth::guard('admin')->user()->roles->first()->name;
+        return $currentUserRole;
+    }
+   }
+
+   if (!function_exists('imageStore')) {
+    function imageStore($path)
+    {
+        $imgObj = $path;
+        $tempPath = $imgObj->storeAs('temp', $imgObj->getClientOriginalName());
+        $fullPath = storage_path('app/public/' . $tempPath);
+        return $fullPath;
+    }
+}

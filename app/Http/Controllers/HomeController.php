@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Mail\ForgetPassMail;
 use App\Models\Country;
+use App\Models\District;
+use App\Models\Division;
 use App\Models\Gender;
+use App\Models\Union;
+use App\Models\Upazila;
 use App\Models\User;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
@@ -391,7 +395,7 @@ class HomeController extends Controller
             'password_confirmation.required' => 'The Confirm Password is required',
             'password_confirmation.same' => 'The Confirm Password and Password must match',
         ]
-    );
+        );
 
         if ($validator->fails()) {
             $toster = array(
@@ -413,4 +417,49 @@ class HomeController extends Controller
 
         return redirect()->route('login')->with($toster);
     }
+
+    public function getDistricts(Request $request)
+    {
+            $divisionId = $request->input('division_id');
+
+            // Fetch districts based on division ID
+            $allDistrict = District::where('division_id', $divisionId)->get();
+
+            // Render the districts dropdown view and pass the districts data to it
+            $html = view('components.district', compact('allDistrict'))->render();
+
+            // Return the rendered HTML as the AJAX response
+            return response()->json(['html' => $html]);
+    }
+
+
+    public function getUpazilas(Request $request)
+    {
+            $valID = $request->input('district_id');
+
+            // Fetch districts based on division ID
+            $allUpazila = Upazila::where('district_id', $valID)->get();
+
+            // Render the districts dropdown view and pass the districts data to it
+            $html = view('components.upazila', compact('allUpazila'))->render();
+
+            // Return the rendered HTML as the AJAX response
+            return response()->json(['html' => $html]);
+    }
+
+
+    public function getUnions(Request $request)
+    {
+            $valID = $request->input('upazila_id');
+
+            // Fetch districts based on division ID
+            $allUnion = Union::where('upazilla_id', $valID)->get();
+
+            // Render the districts dropdown view and pass the districts data to it
+            $html = view('components.union', compact('allUnion'))->render();
+
+            // Return the rendered HTML as the AJAX response
+            return response()->json(['html' => $html]);
+    }
+
 }

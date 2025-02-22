@@ -33,16 +33,16 @@
                             </a> </li>
                     </ul>
                 </li>
-                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>
+                <li class="nav-item {{ request()->is('admin/organization/*') ? 'menu-open' : '' }}"> <a href="#" class="nav-link {{ request()->is('admin/organization/*') ? 'active' : '' }}"> <i class="nav-icon bi bi-pencil-square"></i>
                         <p>
-                            Forms
+                            Organization
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="../forms/general.html" class="nav-link"> <i
+                        <li class="nav-item"> <a href="{{ route('admin.organizationIndex') }}" class="nav-link {{ request()->is('admin/organization/index') ? 'active' : '' }}"> <i
                                     class="nav-icon bi bi-circle"></i>
-                                <p>General Elements</p>
+                                <p>Organization</p>
                             </a> </li>
                     </ul>
                 </li>

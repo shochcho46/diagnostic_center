@@ -23,6 +23,11 @@ Route::post('update/user/pass', [HomeController::class, 'updateUserPassword'])->
 Route::get('google/oauth/load', [App\Http\Controllers\HomeController::class, 'googleOauthLoad'])->name('googleOauthLoad');
 Route::get('google/auth/callback', [App\Http\Controllers\HomeController::class, 'googleOauthCallBack'])->name('googleOauthCallBack');
 
+// Geo
+
+Route::get('all/districts', [App\Http\Controllers\HomeController::class, 'getDistricts'])->name('getDistricts');
+Route::get('all/upazilas', [App\Http\Controllers\HomeController::class, 'getUpazilas'])->name('getUpazilas');
+Route::get('all/unions', [App\Http\Controllers\HomeController::class, 'getUnions'])->name('getUnions');
 
 
 

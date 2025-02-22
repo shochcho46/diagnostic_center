@@ -1,5 +1,6 @@
 {
     "Admin": true,
     "User": true,
-    "Role": true
+    "Role": true,
+    "Organization": true
 }
