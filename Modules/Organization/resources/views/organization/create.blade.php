@@ -65,7 +65,7 @@
 
                             <div class="col-md-3 col-12 mb-3">
                                 <label for="name" class="form-label">Diagnostic Center Name</label>
-                                <input type="text" class="form-control text-lowercase" id="name" name="name" placeholder="Diagnostic Center Name" required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Diagnostic Center Name" required>
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
